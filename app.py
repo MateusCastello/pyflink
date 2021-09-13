@@ -369,7 +369,7 @@ def main():
     register_transactions_sink_into_csv(st_env)
 
     st_env.from_path("source")\
-        .select("customer,transaction_type,online_payment_amount,in_store_payment_amount,lat,lon,transaction_datetime")\
+        .select("*")\
         .insert_into("sink_into_csv")
     st_env.execute("app")
 
