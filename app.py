@@ -37,13 +37,13 @@ def transactions_source(st_env):
                 ds_nsu_cancelamento string, 
                 ds_obs string, 
                 ds_obs_dif_baixa string, 
-                dthr_pedido timestamp, 
-                dt_cheque timestamp, 
-                dt_envio_superpolo timestamp, 
-                dt_fatura timestamp, 
-                dt_pedido timestamp, 
-                dt_sangria timestamp, 
-                dt_transacao_tef timestamp, 
+                dthr_pedido timestamp(3), 
+                dt_cheque timestamp(3), 
+                dt_envio_superpolo timestamp(3), 
+                dt_fatura timestamp(3), 
+                dt_pedido timestamp(3), 
+                dt_sangria timestamp(3), 
+                dt_transacao_tef timestamp(3), 
                 fl_acao_judicial bigint, 
                 fl_agenda bigint, 
                 fl_aguardando_baixa bigint, 
@@ -57,12 +57,12 @@ def transactions_source(st_env):
                 fl_imprimir_offline string, 
                 fl_manutencao bigint, 
                 fl_orcamento bigint, 
-                hr_atend_previsto timestamp, 
-                hr_entrega timestamp, 
-                hr_fatura timestamp, 
-                hr_impressao timestamp, 
-                hr_retorno_entrega timestamp, 
-                hr_saida_entrega timestamp, 
+                hr_atend_previsto timestamp(3), 
+                hr_entrega timestamp(3), 
+                hr_fatura timestamp(3), 
+                hr_impressao timestamp(3), 
+                hr_retorno_entrega timestamp(3), 
+                hr_saida_entrega timestamp(3), 
                 id_cliente bigint, 
                 ip_operador string, 
                 md_duracao_atendimento_s bigint, 
@@ -116,7 +116,7 @@ def transactions_source(st_env):
                 vl_total_liquido decimal(38,18), 
                 vl_total_pedido decimal(38,18), 
                 vl_troco decimal(38,18), 
-                dt_process_stage timestamp
+                dt_process_stage timestamp(3)
             ) WITH (
               'connector.type' = 'kafka',
               'connector.version' = 'universal',
@@ -369,7 +369,7 @@ def main():
     register_transactions_sink_into_csv(st_env)
 
     st_env.from_path("source")\
-        .select("*")\
+        .select("customer,transaction_type,online_payment_amount,in_store_payment_amount,lat,lon,transaction_datetime")\
         .insert_into("sink_into_csv")
     st_env.execute("app")
 
