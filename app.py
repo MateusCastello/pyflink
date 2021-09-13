@@ -130,41 +130,6 @@ def transactions_source(st_env):
             """
     st_env.execute_sql(create_kafka_source_ddl)
 
-
-def register_transactions_source(st_env):
-    st_env.connect(Kafka()
-                   .version("universal")
-                   .topic("transactions-data")
-                   .start_from_latest()
-                   .property("zookeeper.connect", "localhost:2181")
-                   .property("group.id","teste")
-                   .property("clientId","1")
-                   .property("bootstrap.servers", "kafka:29092")) \
-        .with_format(Json()
-        .fail_on_missing_field(True)
-        .schema(DataTypes.ROW([
-        DataTypes.FIELD("customer", DataTypes.STRING()),
-        DataTypes.FIELD("transaction_type", DataTypes.STRING()),
-        DataTypes.FIELD("online_payment_amount", DataTypes.DOUBLE()),
-        DataTypes.FIELD("in_store_payment_amount", DataTypes.DOUBLE()),
-        DataTypes.FIELD("lat", DataTypes.DOUBLE()),
-        DataTypes.FIELD("lon", DataTypes.DOUBLE()),
-        DataTypes.FIELD("transaction_datetime", DataTypes.TIMESTAMP(3))]))) \
-        .with_schema(Schema()
-        .field("customer", DataTypes.STRING())
-        .field("transaction_type", DataTypes.STRING())
-        .field("online_payment_amount", DataTypes.DOUBLE())
-        .field("in_store_payment_amount", DataTypes.DOUBLE())
-        .field("lat", DataTypes.DOUBLE())
-        .field("lon", DataTypes.DOUBLE())
-        .field("rowtime", DataTypes.TIMESTAMP(3))
-        .rowtime(
-        Rowtime()
-            .timestamps_from_field("transaction_datetime")
-            .watermarks_periodic_bounded(60000))) \
-        .in_append_mode() \
-        .register_table_source("source")
-
 def register_transactions_sink_into_csv(st_env):
     result_file = "/opt/opt/flink/usrlib/out.csv"
     if os.path.exists(result_file):
@@ -310,13 +275,13 @@ def register_transactions_sink_into_csv(st_env):
                 DataTypes.STRING(), 
                 DataTypes.STRING(), 
                 DataTypes.STRING(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
                 DataTypes.BIGINT(), 
                 DataTypes.BIGINT(), 
                 DataTypes.BIGINT(), 
@@ -330,12 +295,12 @@ def register_transactions_sink_into_csv(st_env):
                 DataTypes.STRING(), 
                 DataTypes.BIGINT(), 
                 DataTypes.BIGINT(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
-                DataTypes.TIMESTAMP(), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
+                DataTypes.TIMESTAMP(3), 
                 DataTypes.BIGINT(), 
                 DataTypes.STRING(), 
                 DataTypes.BIGINT(), 
@@ -389,7 +354,7 @@ def register_transactions_sink_into_csv(st_env):
                 DataTypes.DECIMAL(12,2), 
                 DataTypes.DECIMAL(12,2), 
                 DataTypes.DECIMAL(12,2), 
-                DataTypes.TIMESTAMP()],
+                DataTypes.TIMESTAMP(3)],
                 result_file))
 def main():
     s_env = StreamExecutionEnvironment.get_execution_environment()
