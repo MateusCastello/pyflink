@@ -131,7 +131,7 @@ def transactions_source(st_env):
     st_env.execute_sql(create_kafka_source_ddl)
 
 def register_transactions_sink_into_csv(st_env):
-    result_file = "/opt/opt/flink/usrlib/out.csv"
+    result_file = "/opt/flink/usrlib/out.csv"
     if os.path.exists(result_file):
         os.remove(result_file)
     st_env.register_table_sink("sink_into_csv",
