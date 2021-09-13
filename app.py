@@ -131,7 +131,7 @@ def transactions_source(st_env):
     st_env.execute_sql(create_kafka_source_ddl)
 
 def register_transactions_sink_into_csv(st_env):
-    result_file = "s3://rd-datalake-dev-temp/spark_dev/flink/out.csv"
+    result_file = "s3a://rd-datalake-dev-temp/spark_dev/flink/out.csv"
     create_kafka_source_ddl = """
             CREATE TABLE source(
                 aa_validade_cartao_credito bigint, 
