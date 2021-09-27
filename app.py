@@ -14,7 +14,7 @@ def transactions_source(st_env):
               'connector.type' = 'kafka',
               'connector.version' = 'universal',
               'connector.topic' = 'A_RAIABD-TB_CANAL_VENDA',
-              'connector.properties.bootstrap.servers' = '10.1.165.35:9092',
+              'connector.properties.bootstrap.servers' = ['10.1.165.35:9092','10.1.165.36:9092','10.1.165.37:9092'],
               'connector.properties.group.id' = 'test_3',
               'connector.properties.client.id' = '1',
               'connector.startup-mode' = 'latest-offset',
