@@ -243,8 +243,8 @@ def main():
                 dt_process_stage timestamp(3)
                 ) WITH(
                     'connector' = 'filesystem',
-                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/output',
-                    'format' = 'json'
+                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/',
+                    'format' = 'parquet'
                     )
                 """
     # Seta enviroments
@@ -257,7 +257,7 @@ def main():
     st_env.execute_sql(ouput)
     st_env.from_path("source")\
     .select("*")\
-    .execute_insert("dest")
+    .insert_into("dest")
 
 if __name__ == '__main__':
     main()
