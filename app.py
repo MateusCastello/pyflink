@@ -27,8 +27,10 @@ def register_transactions_sink_into_csv(st_env):
     result_file = "s3://rd-datalake-dev-temp/spark_dev/flink/out.csv"
     st_env.register_table_sink("sink_into_csv",
     CsvTableSink(
-        ["cd_canal_venda","ds_canal_venda"],
-        [DataTypes.BIGINT(),DataTypes.STRING()],
+        ["cd_canal_venda",
+        "ds_canal_venda"],
+        [DataTypes.BIGINT(),
+        DataTypes.STRING()],
         result_file)
         )
 def main():
@@ -45,7 +47,7 @@ def main():
 
     st_env.from_path("source")\
         .select("*")\
-        .insert_into("sink_into_csv")
+        .execute_insert("sink_into_csv")
     st_env.execute("app")
 
 if __name__ == '__main__':
