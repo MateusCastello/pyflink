@@ -156,7 +156,7 @@ def main():
                 cd_televenda_pai bigint, 
                 cd_televenda_turno string, 
                 cd_tipo_cartao bigint, 
-                cd_tipo_trans_cartao bigint, 
+                cd_tipo_trans_cartao bigint, execute_insert
                 ds_nsu string, 
                 ds_nsu_cancelamento string, 
                 ds_obs string, 
@@ -256,7 +256,7 @@ def main():
     st_env.execute_sql(ouput)
     st_env.from_path("source")\
     .select("*")\
-    .execute_insert("dest")
+    .insert_into("dest")
 
 if __name__ == '__main__':
     main()
