@@ -249,12 +249,13 @@ def main():
     # Seta enviroments
     s_env = StreamExecutionEnvironment.get_execution_environment()
     st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
+    st_env.get_config().get_configuration().set_boolean("python.fn-execution.memory.managed", True)
     # Executa statements
     st_env.execute_sql(input)
     st_env.execute_sql(ouput)
     st_env.from_path("source")\
     .select("*")\
-    .insert_into("dest")
+    .execute_insert("dest")
 
 if __name__ == '__main__':
     main()
