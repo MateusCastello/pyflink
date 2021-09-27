@@ -244,7 +244,7 @@ def main():
                 ) WITH(
                     'connector' = 'filesystem',
                     'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/',
-                    'format' = 'parquet'
+                    'format' = 'json'
                     )
                 """
     # Seta enviroments
