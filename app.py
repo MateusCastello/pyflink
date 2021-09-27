@@ -243,7 +243,7 @@ def main():
                 dt_process_stage timestamp(3)
                 ) WITH(
                     'connector' = 'filesystem',
-                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/',
+                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/ouput',
                     'format' = 'json'
                     )
                 """
@@ -258,6 +258,7 @@ def main():
     st_env.from_path("source")\
     .select("*")\
     .insert_into("dest")
+    st_env.execute("app")
 
 if __name__ == '__main__':
     main()
