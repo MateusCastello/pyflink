@@ -125,7 +125,7 @@ def main():
               'connector.properties.group.id' = 'test_3',
               'connector.properties.client.id' = '1',
               'connector.startup-mode' = 'latest-offset',
-              'format.type' = 'csv'
+              'format.type' = 'json'
             )
             """
 
@@ -248,17 +248,14 @@ def main():
                 """
    # Seta enviroments
     s_env = StreamExecutionEnvironment.get_execution_environment()
-    s_env.set_parallelism(1)
-    s_env.set_stream_time_characteristic(TimeCharacteristic.EventTime)
-    st_env = StreamTableEnvironment \
-        .create(stream_execution_environment=s_env)
+    st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
     # Executa statements
     st_env.execute_sql(input)
     st_env.execute_sql(ouput)
 
     st_env.from_path("source")\
-        .select("*")\
-        .execute_insert("dest")
+    .select("*")\
+    .execute_insert("dest")
 
 if __name__ == '__main__':
     main()
