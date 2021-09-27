@@ -1,6 +1,6 @@
 import os
 from pyflink.datastream import StreamExecutionEnvironment, TimeCharacteristic
-from pyflink.table import StreamTableEnvironment, CsvTableSink, DataTypes, EnvironmentSettings
+from pyflink.table import StreamTableEnvironment, CsvTableSink, DataTypes, EnvironmentSettings,TableConfig
 from pyflink.table.descriptors import Schema, Rowtime, Json, Kafka, Elasticsearch
 from pyflink.table.window import Tumble
 
@@ -247,8 +247,9 @@ def main():
                     'format'='parquet')
                 """
     # Seta enviroments
-    s_env = StreamExecutionEnvironment.get_execution_environment()
-    st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
+    env = StreamExecutionEnvironment.get_execution_environment()
+    table_config = TableConfig()
+    st_env = StreamTableEnvironment.create(env, table_config)
     st_env.get_config().get_configuration().set_boolean("python.fn-execution.memory.managed", True)
     # Executa statements
     st_env.execute_sql(input)
