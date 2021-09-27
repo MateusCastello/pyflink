@@ -242,7 +242,7 @@ def register_transactions_sink_into_csv(st_env):
                   "vl_total_liquido",
                   "vl_total_pedido",
                   "vl_troco",
-                  "dt_process_stage",],
+                  "dt_process_stage"],
                 [DataTypes.BIGINT(),
                 DataTypes.BIGINT(),
                 DataTypes.BIGINT(),
