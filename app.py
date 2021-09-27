@@ -243,7 +243,7 @@ def main():
                 dt_process_stage timestamp(3)
                 ) WITH(
                     'connector' = 'filesystem',
-                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/',
+                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/out.parquet',
                     'format' = 'parquet'
                     )
                 """
