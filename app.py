@@ -115,8 +115,7 @@ def transactions_source(st_env):
                 vl_total decimal(38,18), 
                 vl_total_liquido decimal(38,18), 
                 vl_total_pedido decimal(38,18), 
-                vl_troco decimal(38,18), 
-                dt_process_stage timestamp(3)
+                vl_troco decimal(38,18)
             ) WITH (
               'connector.type' = 'kafka',
               'connector.version' = 'universal',
@@ -241,8 +240,7 @@ def register_transactions_sink_into_csv(st_env):
                   "vl_total",
                   "vl_total_liquido",
                   "vl_total_pedido",
-                  "vl_troco",
-                  "dt_process_stage"],
+                  "vl_troco"],
                 [DataTypes.BIGINT(),
                 DataTypes.BIGINT(),
                 DataTypes.BIGINT(),
@@ -351,8 +349,7 @@ def register_transactions_sink_into_csv(st_env):
                 DataTypes.DECIMAL(38,18),
                 DataTypes.DECIMAL(38,18),
                 DataTypes.DECIMAL(38,18),
-                DataTypes.DECIMAL(38,18),
-                DataTypes.TIMESTAMP(3)],
+                DataTypes.DECIMAL(38,18)],
                 result_file))
 def main():
     s_env = StreamExecutionEnvironment.get_execution_environment()
