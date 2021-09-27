@@ -244,15 +244,14 @@ def main():
                 ) with(
                     'connector.type' = 'filesystem',
                     'path'='s3://rd-datalake-dev-temp/spark_dev/flink/out.csv',
-                    'format'='json')
+                    'format'='parquet')
                 """
-   # Seta enviroments
+    # Seta enviroments
     s_env = StreamExecutionEnvironment.get_execution_environment()
     st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
     # Executa statements
     st_env.execute_sql(input)
     st_env.execute_sql(ouput)
-
     st_env.from_path("source")\
     .select("*")\
     .insert_into("dest")
