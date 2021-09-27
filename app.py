@@ -255,7 +255,7 @@ def main():
 
     st_env.from_path("source")\
     .select("*")\
-    .execute_insert("dest")
+    .insert_into("dest")
 
 if __name__ == '__main__':
     main()
