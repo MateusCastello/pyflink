@@ -256,7 +256,8 @@ def main():
     st_env.execute_sql(ouput)
     st_env.from_path("source")\
     .select("*")\
-    .execute_insert("dest")
+    .execute_insert("dest")\
+    .wait()
 
 if __name__ == '__main__':
     main()
