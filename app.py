@@ -46,7 +46,8 @@ def main():
 
     st_env.from_path("source")\
         .select("*")\
-        .execute_insert("sink_into_csv")
+        .insert_into("sink_into_csv")
+    st_env.execute("app")
 
 if __name__ == '__main__':
     main()
