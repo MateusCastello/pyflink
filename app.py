@@ -39,9 +39,8 @@ def main():
     s_env.set_stream_time_characteristic(TimeCharacteristic.EventTime)
     st_env = StreamTableEnvironment \
         .create(stream_execution_environment=s_env)
-    #st_env.get_config().get_configuration().set_boolean("python.fn-execution.memory.managed", True)
+    st_env.get_config().get_configuration().set_boolean("python.fn-execution.memory.managed", True)
 
-    #register_transactions_source(st_env)
     transactions_source(st_env)
     register_transactions_sink_into_csv(st_env)
 
