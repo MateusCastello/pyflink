@@ -244,7 +244,7 @@ def main():
                 ) with(
                     'connector.type' = 'filesystem',
                     'path'='s3://rd-datalake-dev-temp/spark_dev/flink/out.csv',
-                    'format'='parquet')
+                    'format'='json')
                 """
    # Seta enviroments
     s_env = StreamExecutionEnvironment.get_execution_environment()
