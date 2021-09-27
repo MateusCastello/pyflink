@@ -243,8 +243,8 @@ def main():
                 dt_process_stage timestamp(3)
                 ) WITH(
                     'connector' = 'filesystem',
-                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/',
-                    'format' = 'parquet'
+                    'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/out.csv',
+                    'format' = 'csv'
                     )
                 """
     # Seta enviroments
