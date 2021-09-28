@@ -42,7 +42,7 @@ def main():
     transactions_source(st_env)
     register_transactions_sink_into_csv(st_env)
 
-    st_env.from_path("source").select("*").execute_insert("sink_into_csv")
+    st_env.from_path("source").select("*").insert_into("sink_into_csv")
     st_env.execute("app")
 
 if __name__ == '__main__':
