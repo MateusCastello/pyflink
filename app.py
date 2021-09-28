@@ -18,12 +18,11 @@ def transactions_source(st_env):
               'connector.properties.group.id' = 'test_3',
               'connector.properties.client.id' = '1',
               'connector.startup-mode' = 'latest-offset',
-              'format.type' = 'debezium-json',
-              'debezium-json.schema-include' = 'true'
+              'format.type' = 'debezium-json'
             )
             """
     st_env.execute_sql(create_kafka_source_ddl)
-
+    #'debezium-json.schema-include' = 'true'
 def register_transactions_sink_into_csv(st_env):
     result_file = "s3://rd-datalake-dev-temp/spark_dev/flink/out.csv"
     st_env.register_table_sink("sink_into_csv",
@@ -43,10 +42,8 @@ def main():
     transactions_source(st_env)
     register_transactions_sink_into_csv(st_env)
 
-    st_env.from_path("source")\
-        .select("*")\
-        .execute_insert("sink_into_csv")
-    st_env.execute()
+    st_env.from_path("source").select("*").execute_insert("sink_into_csv")
+    st_env.execute("app")
 
 if __name__ == '__main__':
     main()
