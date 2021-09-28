@@ -38,7 +38,7 @@ def main():
     s_env = StreamExecutionEnvironment.get_execution_environment()
     s_env.set_parallelism(1)
     s_env.set_stream_time_characteristic(TimeCharacteristic.EventTime)
-    st_env = StreamTableEnvironment.create(s_env)
+    st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
 
     transactions_source(st_env)
     register_transactions_sink_into_csv(st_env)
