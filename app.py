@@ -38,17 +38,15 @@ def main():
     s_env = StreamExecutionEnvironment.get_execution_environment()
     s_env.set_parallelism(1)
     s_env.set_stream_time_characteristic(TimeCharacteristic.EventTime)
-    st_env = StreamTableEnvironment \
-        .create(stream_execution_environment=s_env)
-    st_env.get_config().get_configuration().set_boolean("python.fn-execution.memory.managed", True)
+    st_env = StreamTableEnvironment.create(s_env)
 
     transactions_source(st_env)
     register_transactions_sink_into_csv(st_env)
 
     st_env.from_path("source")\
         .select("*")\
-        .insert_into("sink_into_csv")
-    st_env.execute("app")
+        .execute_insert("sink_into_csv")
+    st_env.execute()
 
 if __name__ == '__main__':
     main()
