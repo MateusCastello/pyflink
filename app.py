@@ -18,7 +18,7 @@ def transactions_source(st_env):
               'connector.properties.group.id' = 'test_3',
               'connector.properties.client.id' = '1',
               'connector.startup-mode' = 'latest-offset',
-              'format.type' = 'debezium-json'
+              'format.type' = 'json'
             )
             """
     st_env.execute_sql(create_kafka_source_ddl)
