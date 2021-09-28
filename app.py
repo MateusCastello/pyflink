@@ -18,7 +18,7 @@ def transactions_source(st_env):
               'connector.properties.group.id' = 'test_3',
               'connector.properties.client.id' = '1',
               'connector.startup-mode' = 'latest-offset',
-              'format.type' = 'json',
+              'format.type' = 'debezium-json',
               'debezium-json.schema-include' = 'true'
             )
             """
