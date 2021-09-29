@@ -30,6 +30,8 @@ def job():
         .build()
     ds.print()
     ds.sink_to(file_sink)
+    env.execute()
+
 
 
 if __name__ == '__main__':
