@@ -1,49 +1,35 @@
-import os
-from pyflink.datastream import StreamExecutionEnvironment, TimeCharacteristic
-from pyflink.table import StreamTableEnvironment, CsvTableSink, DataTypes, EnvironmentSettings
-from pyflink.table.descriptors import Schema, Rowtime, Json, Kafka, Elasticsearch
-from pyflink.table.window import Tumble
+from pyflink.datastream.connectors import FlinkKafkaConsumer,FileSink,OutputFileConfig
+from pyflink.common.serialization import JsonRowDeserializationSchema
+from pyflink.datastream import StreamExecutionEnvironment
+from pyflink.common.serialization import Encoder
+from pyflink.common.typeinfo import Types
 
-def transactions_source(st_env):
-    create_kafka_source_ddl = """
-            CREATE TABLE source(
-                cd_canal_venda bigint,
-                ds_canal_venda string
-            ) WITH
-            (
-              'connector.type' = 'kafka',
-              'connector.version' = 'universal',
-              'connector.topic' = 'A_RAIABD-TB_CANAL_VENDA',
-              'connector.properties.bootstrap.servers' = '10.1.165.35:9092,10.1.165.36:9092,10.1.165.37:9092',
-              'connector.properties.group.id' = 'test_3',
-              'connector.properties.client.id' = '1',
-              'connector.startup-mode' = 'latest-offset',
-              'format.type' = 'json'
-            )
-            """
-    st_env.execute_sql(create_kafka_source_ddl)
-    #'debezium-json.schema-include' = 'true'
-def register_transactions_sink_into_csv(st_env):
-    result_file = "s3://rd-datalake-dev-temp/spark_dev/flink/out.csv"
-    st_env.register_table_sink("sink_into_csv",
-    CsvTableSink(
-        ["cd_canal_venda",
-        "ds_canal_venda"],
-        [DataTypes.BIGINT(),
-        DataTypes.STRING()],
-        result_file)
-        )
-def main():
-    s_env = StreamExecutionEnvironment.get_execution_environment()
-    s_env.set_parallelism(1)
-    s_env.set_stream_time_characteristic(TimeCharacteristic.EventTime)
-    st_env = StreamTableEnvironment.create(stream_execution_environment=s_env)
 
-    transactions_source(st_env)
-    register_transactions_sink_into_csv(st_env)
+# Teste do job usando DataStream API
+def job():
+    env = StreamExecutionEnvironment.get_execution_environment()
+    # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
+    #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
-    st_env.from_path("source").select("*").insert_into("sink_into_csv")
-    st_env.execute("app")
+    deserialization_schema = JsonRowDeserializationSchema.builder() \
+        .type_info(type_info=Types.ROW([Types.STRING()])).build()
+
+    kafka_consumer = FlinkKafkaConsumer(
+        topics='A_RAIABD-TB_CANAL_VENDA',
+        deserialization_schema=deserialization_schema,
+        properties={'bootstrap.servers': '10.1.165.35:9092,10.1.165.36:9092,10.1.165.37:9092',
+        'group.id': 'test_group'})
+
+    ds = env.add_source(kafka_consumer)
+
+    # Saída
+    output_path = 's3://rd-datalake-dev-temp/spark_dev/flink/output/'
+    file_sink = FileSink \
+        .for_row_format(output_path, Encoder.simple_string_encoder()) \
+        .with_output_file_config(OutputFileConfig.builder().with_part_prefix('pre').with_part_suffix('suf').build()) \
+        .build()
+    ds.sink_to(file_sink)
+
 
 if __name__ == '__main__':
-    main()
+    job()
