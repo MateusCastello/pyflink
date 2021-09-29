@@ -28,6 +28,7 @@ def job():
         .for_row_format(output_path, Encoder.simple_string_encoder()) \
         .with_output_file_config(OutputFileConfig.builder().with_part_prefix('pre').with_part_suffix('suf').build()) \
         .build()
+    ds.print()
     ds.sink_to(file_sink)
 
 
