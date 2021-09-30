@@ -11,7 +11,7 @@ def job():
     #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
     deserialization_schema = JsonRowDeserializationSchema.builder()\
-    .type_info(type_info=Types.LIST(Types.ROW([Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.STRING())]))).build()
+    .type_info(type_info=Types.ROW([Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.STRING())])).build()
 
     kafka_consumer = FlinkKafkaConsumer(
         topics='A_RAIABD-TB_CANAL_VENDA',
