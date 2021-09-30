@@ -30,7 +30,7 @@ def job():
         .with_part_suffix('suf').build()) \
         .build()
     ds.print()
-    ds.sink_to(file_sink)
+    ds.add_sink(file_sink)
     env.execute()
 if __name__ == '__main__':
     job()
