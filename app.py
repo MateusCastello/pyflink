@@ -10,7 +10,7 @@ def job():
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
-    deserialization_schema = JsonRowDeserializationSchema.builder().type_info().build()
+    deserialization_schema = JsonRowDeserializationSchema.builder().build()
     #
     #deserialization_schema=deserialization_schema,
 
