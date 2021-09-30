@@ -10,12 +10,13 @@ def job():
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
-    deserialization_schema = JsonRowDeserializationSchema.builder() \
-        .type_info(type_info=Types.ROW([Types.MAP(Types.MAP(),Types.MAP(Types.MAP(Types.STRING(), Types.INT()),Types.MAP(Types.STRING(), Types.INT())),Types.MAP(),Types.STRING(),Types.INT())]).build())
+    #deserialization_schema = JsonRowDeserializationSchema.builder() \
+    #    .type_info().build()
+    #deserialization_schema=deserialization_schema,
+
 
     kafka_consumer = FlinkKafkaConsumer(
         topics='A_RAIABD-TB_CANAL_VENDA',
-        deserialization_schema=deserialization_schema,
         properties={'bootstrap.servers': '10.1.165.35:9092,10.1.165.36:9092,10.1.165.37:9092',
         'group.id': 'test_group'})
 
