@@ -1,5 +1,5 @@
 from pyflink.datastream.connectors import FlinkKafkaConsumer,FileSink,OutputFileConfig
-from pyflink.common.serialization import JsonRowDeserializationSchema
+from pyflink.common.serialization import JsonRowDeserializationSchema,SimpleStringSchema
 from pyflink.datastream import StreamExecutionEnvironment
 from pyflink.common.serialization import Encoder
 from pyflink.common.typeinfo import Types
@@ -10,8 +10,9 @@ def job():
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
-    deserialization_schema = JsonRowDeserializationSchema.builder()\
-    .type_info(type_info=Types.ROW([Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.STRING()))])).build()
+    #deserialization_schema = JsonRowDeserializationSchema.builder()\
+    #.type_info(type_info=Types.ROW([Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.MAP(key_type_info=Types.STRING(),value_type_info=Types.STRING()))])).build()
+    deserialization_schema = SimpleStringSchema()
 
     kafka_consumer = FlinkKafkaConsumer(
         topics='A_RAIABD-TB_CANAL_VENDA',
