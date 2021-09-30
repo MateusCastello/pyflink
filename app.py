@@ -4,7 +4,6 @@ from pyflink.datastream import StreamExecutionEnvironment
 from pyflink.common.serialization import Encoder
 from pyflink.common.typeinfo import Types
 
-
 # Teste do job usando DataStream API
 def job():
     env = StreamExecutionEnvironment.get_execution_environment()
@@ -12,7 +11,7 @@ def job():
     #env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
 
     deserialization_schema = JsonRowDeserializationSchema.builder() \
-        .type_info(type_info=Types.ROW([Types.STRING()])).build()
+        .type_info(type_info=Types.ROW([Types.MAP(Types.MAP(),Types.MAP(Types.MAP(Types.STRING(), Types.INT()),Types.MAP(Types.STRING(), Types.INT())),Types.MAP(),Types.STRING(),Types.INT())]).build())
 
     kafka_consumer = FlinkKafkaConsumer(
         topics='A_RAIABD-TB_CANAL_VENDA',
@@ -26,13 +25,13 @@ def job():
     output_path = 's3://rd-datalake-dev-temp/spark_dev/flink/output/'
     file_sink = FileSink \
         .for_row_format(output_path, Encoder.simple_string_encoder()) \
-        .with_output_file_config(OutputFileConfig.builder().with_part_prefix('pre').with_part_suffix('suf').build()) \
+        .with_output_file_config(OutputFileConfig.builder() \
+        .with_part_prefix('pre') \
+        .with_part_suffix('suf').build()) \
         .build()
     ds.print()
     ds.sink_to(file_sink)
     env.execute()
-
-
 
 if __name__ == '__main__':
     job()
