@@ -11,6 +11,8 @@ def job():
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     # env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
     env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
+    env.enable_checkpointing(1000)
+    env.get_checkpoint_config().set_max_concurrent_checkpoints(1)
 
     # deserialization_schema = JsonRowDeserializationSchema.builder().type_info(type_info=Types.ROW([]).build()
     deserialization_schema = SimpleStringSchema()
