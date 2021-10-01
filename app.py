@@ -24,7 +24,7 @@ def job():
     output_path = 's3://rd-datalake-dev-temp/spark_dev/flink/output/'
     file_sink = StreamingFileSink \
         .for_row_format(output_path, Encoder.simple_string_encoder()) \
-        .with_rolling_policy(RollingPolicy().default_rolling_policy(part_size=5*1024*1024,rollover_interval=10*1000,inactivity_interval=10*1000).build()) \
+        .with_rolling_policy(RollingPolicy.default_rolling_policy(part_size=5*1024*1024,rollover_interval=10*1000,inactivity_interval=10*1000).build()) \
         .build()
     ds.add_sink(file_sink)
     env.execute("tb_canal_venda")
