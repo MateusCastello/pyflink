@@ -12,7 +12,6 @@ def job():
 
     # deserialization_schema = JsonRowDeserializationSchema.builder().type_info(type_info=Types.ROW([]).build()
     deserialization_schema = SimpleStringSchema()
-    policy=RollingPolicy()
     kafka_consumer = FlinkKafkaConsumer(
         topics='A_RAIABD-TB_CANAL_VENDA',
         deserialization_schema=deserialization_schema,
@@ -25,7 +24,7 @@ def job():
     output_path = 's3://rd-datalake-dev-temp/spark_dev/flink/output/'
     file_sink = StreamingFileSink \
         .for_row_format(output_path, Encoder.simple_string_encoder()) \
-        .with_rolling_policy(policy.default_rolling_policy()) \
+        .with_rolling_policy(RollingPolicy.default_rolling_policy()) \
         .build()
     ds.add_sink(file_sink)
     env.execute("tb_canal_venda")
