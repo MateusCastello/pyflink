@@ -1,6 +1,6 @@
 from pyflink.datastream.connectors import FlinkKafkaConsumer, RollingPolicy,StreamingFileSink,OutputFileConfig
 from pyflink.common.serialization import JsonRowDeserializationSchema,SimpleStringSchema
-from pyflink.datastream import StreamExecutionEnvironment
+from pyflink.datastream import StreamExecutionEnvironment,RuntimeExecutionMode
 from pyflink.common.serialization import Encoder
 from pyflink.common.typeinfo import Types
 
@@ -9,6 +9,7 @@ def job():
     env = StreamExecutionEnvironment.get_execution_environment()
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     # env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
+    env.set_runtime_mode(RuntimeExecutionMode.STEAMING)
 
     # deserialization_schema = JsonRowDeserializationSchema.builder().type_info(type_info=Types.ROW([]).build()
     deserialization_schema = SimpleStringSchema()
