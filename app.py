@@ -3,13 +3,14 @@ from pyflink.common.serialization import JsonRowDeserializationSchema,SimpleStri
 from pyflink.datastream import StreamExecutionEnvironment
 from pyflink.common.serialization import Encoder
 from pyflink.common.typeinfo import Types
+from pyflink.datastream.execution_mode import RuntimeExecutionMode
 
 # Teste do job usando DataStream API
 def job():
     env = StreamExecutionEnvironment.get_execution_environment()
     # the sql connector for kafka is used here as it's a fat jar and could avoid dependency issues
     # env.add_jars("file:///path/to/flink-sql-connector-kafka.jar")
-    env.set_runtime_mode(execution_mode=0)
+    env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
 
     # deserialization_schema = JsonRowDeserializationSchema.builder().type_info(type_info=Types.ROW([]).build()
     deserialization_schema = SimpleStringSchema()
