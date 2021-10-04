@@ -34,8 +34,7 @@ def job():
     #    .build()
     t_env.execute_sql('''
                     CREATE TABLE sync (
-                        cd_canal_venda INT,
-                        ds_canal_venda STRING
+                        f0 STRING
                     ) WITH (
                         'connector' = 'filesystem',
                         'path' = 's3://kubernets-flink-poc/output/table/',
