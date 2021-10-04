@@ -31,16 +31,16 @@ def job():
     #    .with_part_suffix(".out")
     #    .build()) \
     #    .with_rolling_policy(RollingPolicy.default_rolling_policy(part_size=5*1024*1024,rollover_interval=10*1000,inactivity_interval=10*1000)) \
-    #    .build()
+    #   .build()
     t_env.execute_sql('''
                     CREATE TABLE sync (
-                        f0 STRING
+                        schema STRING
                     ) WITH (
                         'connector' = 'filesystem',
-                        'path' = 's3://kubernets-flink-poc/output/table/',
-                        'format' = 'hudi'
+                        'path' = 's3a://kubernets-flink-poc/output/table/',
+                        'format' = 'parquet'
                     )''')
-    table = t_env.from_data_stream(ds)
+    table = t_env.from_data_stream(ds,"schema")
     table_result = table.execute_insert("sync")
     env.execute("tb_canal_venda")
 
