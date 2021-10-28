@@ -25,10 +25,11 @@ def job():
         )
 
     ds = env.add_source(kafka_consumer)
-    ds = ds.map(lambda x: json.loads(x) ,output_type=Types.ROW)
+    ds = ds.map(lambda x: json.loads(x)['payload']['after'] ,output_type=Types.ROW([Types.INT,Types.STRING]))
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
+                        cd_canal_venda int ,
                         ds_canal_venda STRING
                     ) WITH (
                         'connector' = 'filesystem',
