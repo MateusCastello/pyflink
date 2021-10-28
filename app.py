@@ -1,9 +1,11 @@
+from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer, RollingPolicy,StreamingFileSink,OutputFileConfig
 from pyflink.common.serialization import SimpleStringSchema
-from pyflink.datastream import StreamExecutionEnvironment
+from pyflink.datastream import StreamExecutionEnvironment, data_stream
 from pyflink.table import StreamTableEnvironment
 from pyflink.common.serialization import Encoder
 from pyflink.datastream.execution_mode import RuntimeExecutionMode
+import json
 
 # Teste do job usando DataStream API
 def job():
@@ -23,6 +25,7 @@ def job():
         )
 
     ds = env.add_source(kafka_consumer)
+    ds = ds.map(lambda x: json.loads(x) ,output_type=Types.ROW)
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
@@ -34,7 +37,6 @@ def job():
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
-    #t_env.execute("tb_canal_venda")
 
 if __name__ == '__main__':
     job()
