@@ -34,7 +34,7 @@ def job():
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
-    t_env.execute("tb_canal_venda")
+    #t_env.execute("tb_canal_venda")
 
 if __name__ == '__main__':
     job()
