@@ -1,4 +1,3 @@
-from typing import TypedDict
 from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer, RollingPolicy,StreamingFileSink,OutputFileConfig
 from pyflink.common.serialization import SimpleStringSchema
