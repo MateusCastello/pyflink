@@ -42,7 +42,7 @@ def job():
         CREATE TABLE my_sink (
           b VARCHAR
         ) WITH (
-          'connector' = 'filesystem'
+          'connector' = 'filesystem',
           'path' = {output_path},
           'format' = 'parquet'
         )
