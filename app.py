@@ -38,12 +38,12 @@ def job():
 
     # Converts the datastream to table, to write in parquet format
     table = t_env.from_data_stream(ds, 'a')
-    t_env.execute_sql(f"""
+    t_env.execute_sql("""
         CREATE TABLE my_sink (
           b VARCHAR
         ) WITH (
           'connector' = 'filesystem',
-          'path' = {output_path},
+          'path' = 's3://rd-datalake-dev-temp/spark_dev/flink/output/',
           'format' = 'parquet'
         )
     """)
