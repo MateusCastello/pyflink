@@ -25,8 +25,9 @@ def job():
         )
 
     ds = env.add_source(kafka_consumer)
-    ds = ds.map(lambda x: json.loads(x)['payload']['after'] ,output_type=Types.MAP(key_type_info=Types.LIST(Types.STRING(),Types.STRING()),
-    value_type_info=Types.LIST(Types.STRING(),Types.STRING())))
+    ds = ds.map(lambda x: list(json.loads(x)['payload']['after'].values()),
+    output_type=Types.ROW([Types.INT(),Types.STRING()])
+    )
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
