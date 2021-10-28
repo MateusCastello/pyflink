@@ -29,7 +29,7 @@ def job():
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
-                        cd_canal_venda int ,
+                        cd_canal_venda STRING,
                         ds_canal_venda STRING
                     ) WITH (
                         'connector' = 'filesystem',
