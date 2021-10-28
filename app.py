@@ -1,3 +1,4 @@
+from typing import TypedDict
 from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer, RollingPolicy,StreamingFileSink,OutputFileConfig
 from pyflink.common.serialization import SimpleStringSchema
@@ -25,11 +26,11 @@ def job():
         )
 
     ds = env.add_source(kafka_consumer)
-    ds = ds.map(lambda x: json.loads(x)['payload']['after'] ,output_type=Types.ROW([Types.STRING(),Types.STRING()]))
+    ds = ds.map(lambda x: json.loads(x)['payload']['after'] ,output_type=Types.ROW(Types.MAP(key_type_info=[Types.STRING(),Types.STRING()],value_type_info=[Types.STRING(),Types.STRING()])))
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
-                        cd_canal_venda STRING,
+                        cd_canal_venda int ,
                         ds_canal_venda STRING
                     ) WITH (
                         'connector' = 'filesystem',
