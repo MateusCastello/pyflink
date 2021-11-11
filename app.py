@@ -32,7 +32,7 @@ def job():
                 .build()
     ds.add_sink(file_sink)
     # emit ds to print sink
-    env.execute("tb_canal_venda")
+    env.execute("tb_nf")
 
 if __name__ == '__main__':
     job()
