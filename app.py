@@ -7,7 +7,7 @@ from pyflink.datastream.execution_mode import RuntimeExecutionMode
 # Teste do job usando DataStream API
 def job():
     env = StreamExecutionEnvironment.get_execution_environment()
-    env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
+    #env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
     env.enable_checkpointing(1000)
     env.get_checkpoint_config().set_max_concurrent_checkpoints(1)
 
