@@ -16,7 +16,9 @@ def job():
         topics='transactions-data',
         deserialization_schema=deserialization_schema,
         properties={'bootstrap.servers': 'kafka:29092',
-        'group.id': 'test_group'})
+        'group.id': 'test_group',
+        'startup-mode':'earliest-offset'}
+        )})
     ds = env.add_source(kafka_consumer)
 
 
