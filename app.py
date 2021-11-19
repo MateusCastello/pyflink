@@ -15,7 +15,7 @@ def job():
     kafka_consumer = FlinkKafkaConsumer(
         topics='transactions-data',
         deserialization_schema=deserialization_schema,
-        properties={'bootstrap.servers': 'kafka:29092',
+        properties={'bootstrap.servers': '10.36.0.1:29092',
         'group.id': 'test_group69',
         'auto.offset.reset':'earliest'})
     ds = env.add_source(kafka_consumer)
