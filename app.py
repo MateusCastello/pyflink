@@ -16,7 +16,8 @@ def job():
         topics='transactions-topic',
         deserialization_schema=deserialization_schema,
         properties={'bootstrap.servers': 'kafk-svc.default.svc.cluster.local:9092',
-        'group.id': 'test_group'})
+        'group.id': 'test_group_10',
+        'auto.offset.reset':'earliest'})
     ds = env.add_source(kafka_consumer)
 
 
