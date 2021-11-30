@@ -133,7 +133,7 @@ def job():
                                     WITH (
                         'connector' = 'filesystem',
                         'path' = 's3://kubernets-flink-poc/output/table/tb_nf/',
-                        'format' = 'parquet'
+                        'format' = 'json'
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
