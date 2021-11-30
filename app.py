@@ -26,7 +26,7 @@ def job():
 
     ds = env.add_source(kafka_consumer)
     ds = ds.map(lambda x: list(json.loads(x)['payload']['after'].values()),
-    output_type=Types.ROW([Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.STRING(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE()])
+    output_type=Types.ROW([Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.STRING(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.SQL_DATE()])
     )
     # Saída
     t_env.execute_sql('''
@@ -53,9 +53,7 @@ def job():
                                         VL_BASE_PIS   INT,
                                         VL_BASE_COFINS   INT,
                                         CD_RESPOSTA_PESQUISA   INT,
-                                        ID_NF   INT,
                                         DT_EMISSAO  DATE,
-                                        CD_OPERACAO_FISCAL   INT,
                                         CD_TIPO_TRANSACAO   INT,
                                         VL_CONTABIL   INT,
                                         NR_TRILHA_CARTAO  STRING,
@@ -123,7 +121,6 @@ def job():
                                         CD_PBR   INT,
                                         VL_ESTORNO_GLOSA_CONVENIO   INT,
                                         DT_ESTORNO_GLOSA_CONVENIO  DATE,
-                                        CD_TIPO_GLOSA   INT,
                                         CD_TIPO_GLOSA_PBMR   INT,
                                         CDS_CHAVE_ACESSO_NFE  STRING,
                                         DT_CONFIRMACAO_TRACKING  DATE,
@@ -131,8 +128,7 @@ def job():
                                         CD_OPERACAO_FISCAL   INT,
                                         CD_FILIAL_ORIGEM   INT,
                                         CD_FILIAL_DESTINO   INT,
-                                        DT_EVENTO  DATE,
-                                        DT_EMISSAO  DATE
+                                        DT_EVENTO  DATE
                                     )
                                     WITH (
                         'connector' = 'filesystem',
