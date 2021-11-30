@@ -1,39 +1,145 @@
-from pyflink.datastream.connectors import FlinkKafkaConsumer, RollingPolicy,StreamingFileSink,OutputFileConfig
+from pyflink.common.typeinfo import Types
+from pyflink.datastream.connectors import FlinkKafkaConsumer
 from pyflink.common.serialization import SimpleStringSchema
 from pyflink.datastream import StreamExecutionEnvironment
-from pyflink.common.serialization import Encoder
+from pyflink.table import StreamTableEnvironment
 from pyflink.datastream.execution_mode import RuntimeExecutionMode
+import json
 
 # Teste do job usando DataStream API
 def job():
     env = StreamExecutionEnvironment.get_execution_environment()
-    #env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
+    env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
     env.enable_checkpointing(1000)
     env.get_checkpoint_config().set_max_concurrent_checkpoints(1)
+    t_env = StreamTableEnvironment.create(env)
 
+    # deserialization_schema = JsonRowDeserializationSchema.builder().type_info(type_info=Types.ROW([]).build()
     deserialization_schema = SimpleStringSchema()
     kafka_consumer = FlinkKafkaConsumer(
-        topics='TB_FILIAL',
+        topics='TB_NF',
         deserialization_schema=deserialization_schema,
-        properties={'bootstrap.servers': 'kafk-svc:9092',
-        'group.id': 'group_id',
-        'auto.offset.reset':'latest'})
+        properties={'bootstrap.servers': 'kafka-service:9092',
+        'group.id': 'test_group',
+        'startup-mode':'earliest-offset'}
+        )
+
     ds = env.add_source(kafka_consumer)
-
-
+    ds = ds.map(lambda x: list(json.loads(x)['payload']['after'].values()),
+    output_type=Types.ROW([Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.STRING(),Types.SQL_DATE(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_DATE(),Types.SQL_DATE()])
+    )
     # Saída
-    output_path = 's3://rd-datalake-dev-temp/spark_dev/flink/output/'
-    file_sink = StreamingFileSink \
-        .for_row_format(output_path, Encoder.simple_string_encoder()) \
-        .with_output_file_config(OutputFileConfig.builder()
-        .with_part_suffix(".json")
-        .build()) \
-        .with_rolling_policy(RollingPolicy \
-            .default_rolling_policy(part_size=5*1024*1024,rollover_interval=10*1000,inactivity_interval=10*1000)) \
-                .build()
-    ds.add_sink(file_sink)
-    # emit ds to print sink
-    env.execute("tb_nf")
+    t_env.execute_sql('''
+                    CREATE TABLE sync (
+                                        VL_ISS   INT,
+                                        DT_FECHTO_CREDENCIADA  DATE,
+                                        CD_CREDENCIADA   INT,
+                                        VL_SUBSIDIO_EMPRESA   INT,
+                                        VL_PBM_REEMBOLSO   INT,
+                                        NR_CNPJ_CGC  STRING,
+                                        CD_OPERADOR_VENDA   INT,
+                                        CD_CAMPANHA   INT,
+                                        DT_ATUALIZACAO  DATE,
+                                        DT_CREDENCIADA_FECHTO  DATE,
+                                        CD_MOTIVO_TRANSFERENCIA   INT,
+                                        CD_TP_CUPOM   INT,
+                                        NR_COO   INT,
+                                        NR_SERIE_NF  STRING,
+                                        CD_NFE_TP_SERIE   INT,
+                                        CD_CHAVE_ACESSO_NFE  STRING,
+                                        CD_TOTALIZADOR  STRING,
+                                        VL_PIS   INT,
+                                        VL_COFINS   INT,
+                                        VL_BASE_PIS   INT,
+                                        VL_BASE_COFINS   INT,
+                                        CD_RESPOSTA_PESQUISA   INT,
+                                        ID_NF   INT,
+                                        DT_EMISSAO  DATE,
+                                        CD_OPERACAO_FISCAL   INT,
+                                        CD_TIPO_TRANSACAO   INT,
+                                        VL_CONTABIL   INT,
+                                        NR_TRILHA_CARTAO  STRING,
+                                        VL_ICMS_DESONERADO_NF   INT,
+                                        VL_BASE_ICMS_FCP_NF   INT,
+                                        VL_BASE_ICMS_ST_FCP_NF   INT,
+                                        VL_BASE_ICMS_ST_FCP_ANT_NF   INT,
+                                        VL_BASE_ICMS_ST_GARE_NF   INT,
+                                        VL_ICMS_FCP_NF   INT,
+                                        VL_ICMS_ST_FCP_NF   INT,
+                                        VL_ICMS_ST_FCP_ANT_NF   INT,
+                                        VL_ICMS_ST_GARE_NF   INT,
+                                        VL_TROCO_NF   INT,
+                                        CD_TP_TRIB_CLIENTE   INT,
+                                        CD_TELEVENDA   INT,
+                                        CD_TIPO_PDV   INT,
+                                        CD_TP_REGISTRO   INT,
+                                        CD_FILIAL   INT,
+                                        CD_TRANSACAO_CLIENTE   INT,
+                                        CD_ORIGEM_NF   INT,
+                                        CD_FORMA_PAGTO   INT,
+                                        ID_CLIENTE   INT,
+                                        NR_SEQUE   INT,
+                                        NR_CUPOM   INT,
+                                        NR_SEQUENCIA_CUPOM   INT,
+                                        NR_CAIXA   INT,
+                                        QT_PONTOS   INT,
+                                        VL_NF   INT,
+                                        ST_TRANSMISSAO   INT,
+                                        CD_ENT_FILANT   INT,
+                                        NR_NF   INT,
+                                        VL_ICMS_NF   INT,
+                                        VL_IPI_NF   INT,
+                                        VL_FRETE   INT,
+                                        VL_SEGURO   INT,
+                                        VL_BASE_FRETE   INT,
+                                        VL_ICMS_FRETE   INT,
+                                        PC_ICMS_FRETE   INT,
+                                        VL_BASE_REDUZIDA   INT,
+                                        VL_BASE_ICMS   INT,
+                                        VL_SINAL_PONTOS   INT,
+                                        VL_SINAL_BRINDES   INT,
+                                        VL_SINAL_SALDO   INT,
+                                        DT_FECHTO  DATE,
+                                        DT_FATURAMENTO  DATE,
+                                        VL_SINAL_ESTOQUE   INT,
+                                        VL_NF_REPASSE   INT,
+                                        FL_VENDA_RG   INT,
+                                        VL_TOTAL_CUSTO   INT,
+                                        VL_SINAL_ESTOQUE_INDISP_ORIGEM   INT,
+                                        DT_TIMESTAMP  DATE,
+                                        NR_AUTORIZACAO   INT,
+                                        CD_TP_NF   INT,
+                                        CD_EMPRESA_VENDA_VINCULADA   INT,
+                                        ST_FATURAMENTO_CONVENIO  STRING,
+                                        CD_OPERADOR   INT,
+                                        ST_TRANSMISSAO_TERCEIROS   INT,
+                                        NR_AUTORIZACAO_PBM   INT,
+                                        VL_GLOSA_PBM_REPASSE   INT,
+                                        VL_GLOSA_PBM_SUBSIDIO   INT,
+                                        VL_GLOSA_CONVENIO   INT,
+                                        DT_GLOSA_CONVENIO  DATE,
+                                        DT_GLOSA_PBM_SUBSIDIO  DATE,
+                                        DT_GLOSA_PBM_REPASSE  DATE,
+                                        CD_PBR   INT,
+                                        VL_ESTORNO_GLOSA_CONVENIO   INT,
+                                        DT_ESTORNO_GLOSA_CONVENIO  DATE,
+                                        CD_TIPO_GLOSA   INT,
+                                        CD_TIPO_GLOSA_PBMR   INT,
+                                        CDS_CHAVE_ACESSO_NFE  STRING,
+                                        DT_CONFIRMACAO_TRACKING  DATE,
+                                        ID_NF   INT,
+                                        CD_OPERACAO_FISCAL   INT,
+                                        CD_FILIAL_ORIGEM   INT,
+                                        CD_FILIAL_DESTINO   INT,
+                                        DT_EVENTO  DATE,
+                                        DT_EMISSAO  DATE,
+                    ) WITH (
+                        'connector' = 'filesystem',
+                        'path' = 's3://kubernets-flink-poc/output/table/tb_nf/',
+                        'format' = 'parquet'
+                    )''')
+    table = t_env.from_data_stream(ds)
+    table.execute_insert("sync")
 
 if __name__ == '__main__':
     job()
