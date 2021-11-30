@@ -132,8 +132,9 @@ def job():
                                         CD_FILIAL_ORIGEM   INT,
                                         CD_FILIAL_DESTINO   INT,
                                         DT_EVENTO  DATE,
-                                        DT_EMISSAO  DATE,
-                    ) WITH (
+                                        DT_EMISSAO  DATE
+                                    )
+                                    WITH (
                         'connector' = 'filesystem',
                         'path' = 's3://kubernets-flink-poc/output/table/tb_nf/',
                         'format' = 'parquet'
