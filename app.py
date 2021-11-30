@@ -26,21 +26,20 @@ def job():
 
     ds = env.add_source(kafka_consumer)
     ds = ds.map(lambda x: list(json.loads(x)['payload']['after'].values()),
-    output_type=Types.ROW([Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.STRING(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP()])
-    )
+    output_type=Types.ROW([Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.STRING(),Types.SQL_TIMESTAMP(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.SQL_TIMESTAMP()]))
     # Saída
     t_env.execute_sql('''
                     CREATE TABLE sync (
                                         VL_ISS INT,
-                                        DT_FECHTO_CREDENCIADA DATE,
+                                        DT_FECHTO_CREDENCIADA STRING,
                                         CD_CREDENCIADA INT,
                                         VL_SUBSIDIO_EMPRESA INT,
                                         VL_PBM_REEMBOLSO INT,
                                         NR_CNPJ_CGC STRING,
                                         CD_OPERADOR_VENDA INT,
                                         CD_CAMPANHA INT,
-                                        DT_ATUALIZACAO DATE,
-                                        DT_CREDENCIADA_FECHTO DATE,
+                                        DT_ATUALIZACAO STRING,
+                                        DT_CREDENCIADA_FECHTO STRING,
                                         CD_MOTIVO_TRANSFERENCIA INT,
                                         CD_TP_CUPOM INT,
                                         NR_COO INT,
@@ -96,14 +95,14 @@ def job():
                                         VL_SINAL_PONTOS INT,
                                         VL_SINAL_BRINDES INT,
                                         VL_SINAL_SALDO INT,
-                                        DT_FECHTO DATE,
-                                        DT_FATURAMENTO DATE,
+                                        DT_FECHTO STRING,
+                                        DT_FATURAMENTO STRING,
                                         VL_SINAL_ESTOQUE INT,
                                         VL_NF_REPASSE INT,
                                         FL_VENDA_RG INT,
                                         VL_TOTAL_CUSTO INT,
                                         VL_SINAL_ESTOQUE_INDISP_ORIGEM INT,
-                                        DT_TIMESTAMP DATE,
+                                        DT_TIMESTAMP STRING,
                                         NR_AUTORIZACAO INT,
                                         CD_TP_NF INT,
                                         CD_EMPRESA_VENDA_VINCULADA INT,
@@ -114,21 +113,21 @@ def job():
                                         VL_GLOSA_PBM_REPASSE INT,
                                         VL_GLOSA_PBM_SUBSIDIO INT,
                                         VL_GLOSA_CONVENIO INT,
-                                        DT_GLOSA_CONVENIO DATE,
-                                        DT_GLOSA_PBM_SUBSIDIO DATE,
-                                        DT_GLOSA_PBM_REPASSE DATE,
+                                        DT_GLOSA_CONVENIO STRING,
+                                        DT_GLOSA_PBM_SUBSIDIO STRING,
+                                        DT_GLOSA_PBM_REPASSE STRING,
                                         CD_PBR INT,
                                         VL_ESTORNO_GLOSA_CONVENIO INT,
-                                        DT_ESTORNO_GLOSA_CONVENIO DATE,
+                                        DT_ESTORNO_GLOSA_CONVENIO STRING,
                                         CD_TIPO_GLOSA INT,
                                         CD_TIPO_GLOSA_PBMR INT,
                                         CDS_CHAVE_ACESSO_NFE STRING,
-                                        DT_CONFIRMACAO_TRACKING DATE,
+                                        DT_CONFIRMACAO_TRACKING STRING,
                                         ID_NF INT,
                                         CD_OPERACAO_FISCAL INT,
                                         CD_FILIAL_ORIGEM INT,
                                         CD_FILIAL_DESTINO INT,
-                                        DT_EVENTO DATE
+                                        DT_EVENTO STRING
                                     )
                                     WITH (
                         'connector' = 'filesystem',
