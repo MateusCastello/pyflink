@@ -1,3 +1,4 @@
+from typing_extensions import TypeVarTuple
 from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer
 from pyflink.common.serialization import SimpleStringSchema
@@ -29,7 +30,7 @@ def job():
     output_type=Types.ROW([Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.STRING(),Types.INT(),Types.INT(),Types.STRING(),Types.STRING(),Types.INT(),Types.INT(),Types.INT(),Types.INT(),Types.STRING()]))
     # Saída
     t_env.execute_sql('''
-                    CREATE TABLE sync (
+                    CREATE TABLE SINK (
                                         VL_ISS INT,
                                         DT_FECHTO_CREDENCIADA STRING,
                                         CD_CREDENCIADA INT,
@@ -138,8 +139,9 @@ def job():
                         'connector.write.flush.interval' = '1s'
                     )''')
     table = t_env.from_data_stream(ds)
-    table.insert_into('sync')
-    t_env.execute('tb_nf')
+    t_env.create_temporary_view("InputTable", table)
+    t_env.sql_query("INSERT INTO SINK SELECT * FROM InputTable")
+    t_env.execute()
 
 if __name__ == '__main__':
     job()
