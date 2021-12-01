@@ -132,7 +132,7 @@ def job():
                 WITH (
                         'connector.type' = 'jdbc',
                         'connector.url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
-                        'connector.table' = 'access_statistic',
+                        'connector.table' = 'public.sync',
                         'connector.username' = 'mantapostgres',
                         'connector.password' = 'postgres_password',
                         'connector.write.flush.interval' = '1s'
