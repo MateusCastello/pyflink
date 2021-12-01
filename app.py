@@ -130,9 +130,12 @@ def job():
                                         DT_EVENTO STRING
                                     )
                 WITH (
-                        'connector' = 'jdbc',
-                        'url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase?user=mantapostgres&password=postgres_password',
-                        'table-name' = 'sync'
+                        'connector.type' = 'jdbc',
+                        'connector.url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
+                        'connector.table' = 'access_statistic',
+                        'connector.username' = 'mantapostgres',
+                        'connector.password' = 'postgres_password',
+                        'connector.write.flush.interval' = '1s'
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
