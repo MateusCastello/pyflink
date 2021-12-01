@@ -1,4 +1,3 @@
-from typing_extensions import TypeVarTuple
 from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer
 from pyflink.common.serialization import SimpleStringSchema
