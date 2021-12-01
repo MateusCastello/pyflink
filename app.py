@@ -139,7 +139,7 @@ def job():
                     )''')
     table = t_env.from_data_stream(ds)
     table.insert_into('sync')
-    t_env.execute()
+    t_env.execute('tb_nf')
 
 if __name__ == '__main__':
     job()
