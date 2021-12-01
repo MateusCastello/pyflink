@@ -131,9 +131,8 @@ def job():
                                     )
                 WITH (
                         'connector' = 'jdbc',
-                        'url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
+                        'url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase?user=mantapostgres&password=postgres_password',
                         'table-name' = 'sync'
-
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
