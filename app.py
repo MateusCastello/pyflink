@@ -1,3 +1,4 @@
+from typing_extensions import TypeVarTuple
 from pyflink.common.typeinfo import Types
 from pyflink.datastream.connectors import FlinkKafkaConsumer
 from pyflink.common.serialization import SimpleStringSchema
@@ -132,13 +133,14 @@ def job():
                 WITH (
                         'connector.type' = 'jdbc',
                         'connector.url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
-                        'connector.table' = 'public.sync',
+                        'connector.table' = 'access_statistic',
                         'connector.username' = 'mantapostgres',
                         'connector.password' = 'postgres_password',
                         'connector.write.flush.interval' = '1s'
                     )''')
     table = t_env.from_data_stream(ds)
-    table.execute_insert('sync')
+    table.insert_into('sync')
+    t_env.execute()
 
 if __name__ == '__main__':
     job()
