@@ -133,9 +133,9 @@ def job():
                         'connector' = 'filesystem',
                         'path' = 's3://kubernets-flink-poc/output/table/tb_nf/',
                         'format' = 'json',
-                        'sink.rolling-policy.file-size' = '5',
-                        'sink.rolling-policy.rollover-interval' = '10',
-                        'sink.rolling-policy.check-interval' = '10'
+                        'sink.rolling-policy.file-size' = '5*1024*1024',
+                        'sink.rolling-policy.rollover-interval' = '10*1000',
+                        'sink.rolling-policy.check-interval' = '10*1000'
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
