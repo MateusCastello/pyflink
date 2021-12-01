@@ -130,12 +130,10 @@ def job():
                                         DT_EVENTO STRING
                                     )
                 WITH (
-                        'connector' = 'filesystem',
-                        'path' = 's3://kubernets-flink-poc/output/table/tb_nf/',
-                        'format' = 'json',
-                        'sink.rolling-policy.file-size' = '5mb',
-                        'sink.rolling-policy.rollover-interval' = '10s',
-                        'sink.rolling-policy.check-interval' = '10s'
+                        'connector' = 'jdbc',
+                        'url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
+                        'table-name' = 'sync'
+
                     )''')
     table = t_env.from_data_stream(ds)
     table.execute_insert("sync")
