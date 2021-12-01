@@ -138,7 +138,7 @@ def job():
                         'connector.write.flush.interval' = '1s'
                     )''')
     table = t_env.from_data_stream(ds)
-    table.execute()
+    table.execute_insert('sync')
 
 if __name__ == '__main__':
     job()
