@@ -140,7 +140,7 @@ def job():
     table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
     t_env.execute_sql("INSERT INTO SINK SELECT * FROM InputTable")
-    t_env.execute('tb_nf')
+    env.execute('tb_nf')
 
 if __name__ == '__main__':
     job()
