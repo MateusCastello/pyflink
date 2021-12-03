@@ -141,7 +141,7 @@ def job():
     t_env.create_temporary_view("InputTable", table)
     t_env.execute_sql("""
                         `f0` AS VL_ISS ,
- TO_TIMESTAMP(`f1`) AS DT_FECHTO_CREDENCIADA,
+CAST(`f1` AS TIMESTAMP) AS DT_FECHTO_CREDENCIADA,
 `f2` AS CD_CREDENCIADA ,
 `f3` AS VL_SUBSIDIO_EMPRESA ,
 `f4` AS VL_PBM_REEMBOLSO ,
@@ -237,7 +237,7 @@ CAST(`f92` AS TIMESTAMP(3)) AS DT_CONFIRMACAO_TRACKING,
 `f94` AS CD_OPERACAO_FISCAL ,
 `f95` AS CD_FILIAL_ORIGEM ,
 `f96` AS CD_FILIAL_DESTINO ,
-CAST(`f97` AS TIMESTAMP(3)) AS DT_EVENTO
+ CAST(`f97` AS TIMESTAMP(3)) AS DT_EVENTO
                         FROM InputTable""")
     env.execute('tb_nf')
 
