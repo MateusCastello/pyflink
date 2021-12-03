@@ -109,7 +109,7 @@ def job():
                                         ST_FATURAMENTO_CONVENIO STRING,
                                         CD_OPERADOR INT,
                                         ST_TRANSMISSAO_TERCEIROS INT,
-                                        NR_AUTORIZACAO_PBM INT,*
+                                        NR_AUTORIZACAO_PBM INT,
                                         VL_GLOSA_PBM_REPASSE INT,
                                         VL_GLOSA_PBM_SUBSIDIO INT,
                                         VL_GLOSA_CONVENIO INT,
