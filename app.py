@@ -141,7 +141,7 @@ def job():
     t_env.create_temporary_view("InputTable", table)
     t_env.execute_sql("""
                         `f0` AS VL_ISS ,
- STRING.toTimestamp(`f1`) AS DT_FECHTO_CREDENCIADA,
+ TO_TIMESTAMP(`f1`) AS DT_FECHTO_CREDENCIADA,
 `f2` AS CD_CREDENCIADA ,
 `f3` AS VL_SUBSIDIO_EMPRESA ,
 `f4` AS VL_PBM_REEMBOLSO ,
