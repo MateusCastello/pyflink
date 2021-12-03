@@ -102,7 +102,7 @@ def job():
                                         FL_VENDA_RG INT,
                                         VL_TOTAL_CUSTO INT,
                                         VL_SINAL_ESTOQUE_INDISP_ORIGEM INT,
-                                        DT_TIMESTAMP(3) TIMESTAMP(3),
+                                        DT_TIMESTAMP TIMESTAMP(3),
                                         NR_AUTORIZACAO INT,
                                         CD_TP_NF INT,
                                         CD_EMPRESA_VENDA_VINCULADA INT,
