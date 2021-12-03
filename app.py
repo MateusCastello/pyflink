@@ -38,8 +38,8 @@ def job():
                                         NR_CNPJ_CGC STRING,
                                         CD_OPERADOR_VENDA INT,
                                         CD_CAMPANHA INT,
-                                        DT_ATUALIZACAO  STRING ,
-                                        DT_CREDENCIADA_FECHTO  STRING ,
+                                        DT_ATUALIZACAO STRING,
+                                        DT_CREDENCIADA_FECHTO STRING,
                                         CD_MOTIVO_TRANSFERENCIA INT,
                                         CD_TP_CUPOM INT,
                                         NR_COO INT,
@@ -95,14 +95,14 @@ def job():
                                         VL_SINAL_PONTOS INT,
                                         VL_SINAL_BRINDES INT,
                                         VL_SINAL_SALDO INT,
-                                        DT_FECHTO  STRING,
-                                        DT_FATURAMENTO  STRING,
+                                        DT_FECHTO STRING,
+                                        DT_FATURAMENTO STRING,
                                         VL_SINAL_ESTOQUE INT,
                                         VL_NF_REPASSE INT,
                                         FL_VENDA_RG INT,
                                         VL_TOTAL_CUSTO INT,
                                         VL_SINAL_ESTOQUE_INDISP_ORIGEM INT,
-                                        DT_TIMESTAMP  STRING,
+                                        DT_TIMESTAMP STRING,
                                         NR_AUTORIZACAO INT,
                                         CD_TP_NF INT,
                                         CD_EMPRESA_VENDA_VINCULADA INT,
@@ -113,21 +113,21 @@ def job():
                                         VL_GLOSA_PBM_REPASSE INT,
                                         VL_GLOSA_PBM_SUBSIDIO INT,
                                         VL_GLOSA_CONVENIO INT,
-                                        DT_GLOSA_CONVENIO  STRING,
-                                        DT_GLOSA_PBM_SUBSIDIO  STRING ,
-                                        DT_GLOSA_PBM_REPASSE  STRING,
+                                        DT_GLOSA_CONVENIO STRING,
+                                        DT_GLOSA_PBM_SUBSIDIO STRING,
+                                        DT_GLOSA_PBM_REPASSE STRING,
                                         CD_PBR INT,
                                         VL_ESTORNO_GLOSA_CONVENIO INT,
                                         DT_ESTORNO_GLOSA_CONVENIO STRING,
                                         CD_TIPO_GLOSA INT,
                                         CD_TIPO_GLOSA_PBMR INT,
                                         CDS_CHAVE_ACESSO_NFE STRING,
-                                        DT_CONFIRMACAO_TRACKING  STRING,
+                                        DT_CONFIRMACAO_TRACKING STRING,
                                         ID_NF INT,
                                         CD_OPERACAO_FISCAL INT,
                                         CD_FILIAL_ORIGEM INT,
                                         CD_FILIAL_DESTINO INT,
-                                        DT_EVENTO  STRING
+                                        DT_EVENTO STRING
                                     )
                 WITH (
                         'connector.type' = 'jdbc',
@@ -135,11 +135,11 @@ def job():
                         'connector.table' = 'public.sink',
                         'connector.username' = 'mantapostgres',
                         'connector.password' = 'postgres_password',
-                        'connector.write.flush.interval' = '10s'
+                        'connector.write.flush.interval' = '1s'
                     )''')
-    table = t_env.from_data_stream(ds,)
+    table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
-    t_env.execute_sql("""INSERT INTO SINK SELECT * FROM InputTable""")
+    t_env.execute_sql("INSERT INTO SINK SELECT * FROM InputTable")
     env.execute('tb_nf')
 
 if __name__ == '__main__':
