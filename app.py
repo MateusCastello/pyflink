@@ -141,7 +141,7 @@ def job():
     #t_env.create_temporary_view("InputTable", table)
     #t_env.execute_sql("INSERT INTO SINK SELECT * FROM InputTable")
     table.execute_insert("SINK")
-    t_env.execute('tb_nf')
+    #t_env.execute('tb_nf')
 
 if __name__ == '__main__':
     job()
