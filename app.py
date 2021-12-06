@@ -235,7 +235,7 @@ def job():
                                         ,CAST('f89' AS int ) as cd_tipo_glosa
                                         ,CAST('f90' AS int ) as cd_tipo_glosa_pbmr
                                         ,CAST('f91' AS varchar ) as cds_chave_acesso_nfe
-                                        ,CAST('f92' AS TIMESTAMP(3) ) as dt_confirmacao_tracking
+                                        ,CAST('f92' AS TIMESTAMP(3)) as dt_confirmacao_tracking
                                         ,CAST('f93' AS int ) as id_nf
                                         ,CAST('f94' AS int ) as cd_operacao_fiscal
                                         ,CAST('f95' AS int ) as cd_filial_origem
@@ -244,7 +244,7 @@ def job():
                                         FROM InputTable
                                         """).wait()
 
-    t_env.execute('tb_nf')
+    #t_env.execute('tb_nf')
 
 if __name__ == '__main__':
     job()
