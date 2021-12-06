@@ -89,7 +89,7 @@ def job():
                                         vl_icms_nf int ,
                                         vl_ipi_nf int ,
                                         vl_frete int ,
-                                        vl_seguro int ,JdbcSink
+                                        vl_seguro int ,
                                         vl_base_frete int ,
                                         vl_icms_frete int ,
                                         pc_icms_frete int ,
