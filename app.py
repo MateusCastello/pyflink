@@ -142,7 +142,6 @@ def job():
                     )''')
     table = t_env.from_data_stream(ds,)
     t_env.create_temporary_view("InputTable", table)
-    t_env.insert_into()
     tabela=t_env.execute_sql(""" SELECT
                                          CAST(f0 AS int ) as vl_iss
                                         ,CAST(f1 AS TIMESTAMP(3) ) as dt_fechto_credenciada
