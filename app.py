@@ -138,8 +138,9 @@ def job():
                         'connector.write.flush.interval' = '1s'
                     )''')
     table = t_env.from_data_stream(ds)
-    t_env.create_temporary_view("InputTable", table)
-    t_env.execute_sql("INSERT INTO SINK SELECT * FROM InputTable")
+    #t_env.create_temporary_view("InputTable", table)
+    #t_env.execute_sql("INSERT INTO SINK SELECT * FROM InputTable")
+    table.execute_insert("SINK")
     t_env.execute('tb_nf')
 
 if __name__ == '__main__':
