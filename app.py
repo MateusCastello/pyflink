@@ -32,7 +32,7 @@ def job():
     jdbc_options = JdbcConnectionOptions.JdbcConnectionOptionsBuilder() \
         .with_user_name("mantapostgres") \
         .with_password("postgres_password") \
-        .with_driver_name("org.postgresql.xa.jdbc.Driver")\
+        .with_driver_name("org.postgresql")\
         .with_url("jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase") \
         .build()
 
