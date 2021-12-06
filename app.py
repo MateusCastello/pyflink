@@ -143,104 +143,104 @@ def job():
     table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
     t_env.execute_sql("""INSERT INTO SINK SELECT
-                                        'f0' AS VL_ISS ,
-                                         CAST('f1' AS TIMESTAMP(3)) AS DT_FECHTO_CREDENCIADA,
-                                        'f2' AS CD_CREDENCIADA ,
-                                        'f3' AS VL_SUBSIDIO_EMPRESA ,
-                                        'f4' AS VL_PBM_REEMBOLSO ,
-                                        'f5' AS NR_CNPJ_CGC ,
-                                        'f6' AS CD_OPERADOR_VENDA ,
-                                        'f7' AS CD_CAMPANHA ,
-                                         CAST('f8' AS TIMESTAMP(3)) AS DT_ATUALIZACAO,
-                                         CAST('f9' AS TIMESTAMP(3)) AS DT_CREDENCIADA_FECHTO ,
-                                        'f10' AS CD_MOTIVO_TRANSFERENCIA ,
-                                        'f11' AS CD_TP_CUPOM ,
-                                        'f12' AS NR_COO ,
-                                        'f13' AS NR_SERIE_NF ,
-                                        'f14' AS CD_NFE_TP_SERIE ,
-                                        'f15' AS CD_CHAVE_ACESSO_NFE ,
-                                        'f16' AS CD_TOTALIZADOR ,
-                                        'f17' AS VL_PIS ,
-                                        'f18' AS VL_COFINS ,
-                                        'f19' AS VL_BASE_PIS ,
-                                        'f20' AS VL_BASE_COFINS ,
-                                        'f21' AS CD_RESPOSTA_PESQUISA ,
-                                        'f22' AS CD_TIPO_TRANSACAO ,
-                                        'f23' AS VL_CONTABIL ,
-                                        'f24' AS NR_TRILHA_CARTAO ,
-                                        'f25' AS VL_ICMS_DESONERADO_NF ,
-                                        'f26' AS VL_BASE_ICMS_FCP_NF ,
-                                        'f27' AS VL_BASE_ICMS_ST_FCP_NF ,
-                                        'f28' AS VL_BASE_ICMS_ST_FCP_ANT_NF ,
-                                        'f29' AS VL_BASE_ICMS_ST_GARE_NF ,
-                                        'f30' AS VL_ICMS_FCP_NF ,
-                                        'f31' AS VL_ICMS_ST_FCP_NF ,
-                                        'f32' AS VL_ICMS_ST_FCP_ANT_NF ,
-                                        'f33' AS VL_ICMS_ST_GARE_NF ,
-                                        'f34' AS VL_TROCO_NF ,
-                                        'f35' AS CD_TP_TRIB_CLIENTE ,
-                                        'f36' AS CD_TELEVENDA ,
-                                        'f37' AS CD_TIPO_PDV ,
-                                        'f38' AS  CD_TP_REGISTRO,
-                                        'f39' AS CD_FILIAL ,
-                                        'f40' AS CD_TRANSACAO_CLIENTE ,
-                                        'f41' AS CD_ORIGEM_NF ,
-                                        'f42' AS CD_FORMA_PAGTO ,
-                                        'f43' AS ID_CLIENTE ,
-                                        'f44' AS NR_SEQUE ,
-                                        'f45' AS NR_CUPOM ,
-                                        'f46' AS NR_SEQUENCIA_CUPOM ,
-                                        'f47' AS NR_CAIXA ,
-                                        'f48' AS QT_PONTOS ,
-                                        'f49' AS VL_NF ,
-                                        'f50' AS ST_TRANSMISSAO ,
-                                        'f51' AS CD_ENT_FILANT ,
-                                        'f52' AS NR_NF ,
-                                        'f53' AS VL_ICMS_NF ,
-                                        'f54' AS VL_IPI_NF ,
-                                        'f55' AS VL_FRETE ,
-                                        'f56' AS VL_SEGURO ,
-                                        'f57' AS VL_BASE_FRETE ,
-                                        'f58' AS VL_ICMS_FRETE ,
-                                        'f59' AS PC_ICMS_FRETE ,
-                                        'f60' AS VL_BASE_REDUZIDA ,
-                                        'f61' AS VL_BASE_ICMS ,
-                                        'f62' AS VL_SINAL_PONTOS ,
-                                        'f63' AS VL_SINAL_BRINDES ,
-                                        'f64' AS VL_SINAL_SALDO ,
-                                         CAST('f65' AS TIMESTAMP(3)) AS DT_FECHTO ,
-                                         CAST('f66' AS TIMESTAMP(3)) AS DT_FATURAMENTO,
-                                        'f67' AS VL_SINAL_ESTOQUE ,
-                                        'f68' AS VL_NF_REPASSE ,
-                                        'f69' AS FL_VENDA_RG ,
-                                        'f70' AS VL_TOTAL_CUSTO ,
-                                        'f71' AS VL_SINAL_ESTOQUE_INDISP_ORIGEM ,
-                                         CAST('f72' AS TIMESTAMP(3)) AS DT_TIMESTAMP,
-                                        'f73' AS NR_AUTORIZACAO ,
-                                        'f74' AS CD_TP_NF ,
-                                        'f75' AS CD_EMPRESA_VENDA_VINCULADA ,
-                                        'f76' AS ST_FATURAMENTO_CONVENIO ,
-                                        'f77' AS CD_OPERADOR ,
-                                        'f78' AS ST_TRANSMISSAO_TERCEIROS ,
-                                        'f79' AS NR_AUTORIZACAO_PBM ,
-                                        'f80' AS VL_GLOSA_PBM_REPASSE ,
-                                        'f81' AS VL_GLOSA_PBM_SUBSIDIO ,
-                                        'f82' AS VL_GLOSA_CONVENIO ,
-                                        CAST('f83' AS TIMESTAMP(3)) AS DT_GLOSA_CONVENIO ,
-                                        CAST('f84' AS TIMESTAMP(3)) AS DT_GLOSA_PBM_SUBSIDIO ,
-                                        CAST('f85' AS TIMESTAMP(3)) AS DT_GLOSA_PBM_REPASSE ,
-                                        'f86' AS CD_PBR ,
-                                        'f87' AS VL_ESTORNO_GLOSA_CONVENIO ,
-                                        CAST('f88' AS TIMESTAMP(3)) AS DT_ESTORNO_GLOSA_CONVENIO ,
-                                        'f89' AS CD_TIPO_GLOSA ,
-                                        'f90' AS CD_TIPO_GLOSA_PBMR ,
-                                        'f91' AS CDS_CHAVE_ACESSO_NFE ,
-                                        CAST('f92' AS TIMESTAMP(3)) AS DT_CONFIRMACAO_TRACKING,
-                                        'f93' AS ID_NF ,
-                                        'f94' AS CD_OPERACAO_FISCAL ,
-                                        'f95' AS CD_FILIAL_ORIGEM ,
-                                        'f96' AS CD_FILIAL_DESTINO ,
-                                        CAST('f97' AS TIMESTAMP(3)) AS DT_EVENTO
+                                        CAST('f0' AS int ) as vl_iss
+                                        CAST('f1' AS TIMESTAMP(3) ) as dt_fechto_credenciada
+                                        CAST('f2' AS int ) as cd_credenciada
+                                        CAST('f3' AS int ) as vl_subsidio_empresa
+                                        CAST('f4' AS int ) as vl_pbm_reembolso
+                                        CAST('f5' AS varchar ) as nr_cnpj_cgc
+                                        CAST('f6' AS int ) as cd_operador_venda
+                                        CAST('f7' AS int ) as cd_campanha
+                                        CAST('f8' AS TIMESTAMP(3) ) as dt_atualizacao
+                                        CAST('f9' AS TIMESTAMP(3) ) as dt_credenciada_fechto
+                                        CAST('f10' AS int ) as cd_motivo_transferencia
+                                        CAST('f11' AS int ) as cd_tp_cupom
+                                        CAST('f12' AS int ) as nr_coo
+                                        CAST('f13' AS varchar ) as nr_serie_nf
+                                        CAST('f14' AS int ) as cd_nfe_tp_serie
+                                        CAST('f15' AS varchar ) as cd_chave_acesso_nfe
+                                        CAST('f16' AS varchar ) as cd_totalizador
+                                        CAST('f17' AS int ) as vl_pis
+                                        CAST('f18' AS int ) as vl_cofins
+                                        CAST('f19' AS int ) as vl_base_pis
+                                        CAST('f20' AS int ) as vl_base_cofins
+                                        CAST('f21' AS int ) as cd_resposta_pesquisa
+                                        CAST('f22' AS int ) as cd_tipo_transacao
+                                        CAST('f23' AS int ) as vl_contabil
+                                        CAST('f24' AS varchar ) as nr_trilha_cartao
+                                        CAST('f25' AS int ) as vl_icms_desonerado_nf
+                                        CAST('f26' AS int ) as vl_base_icms_fcp_nf
+                                        CAST('f27' AS int ) as vl_base_icms_st_fcp_nf
+                                        CAST('f28' AS int ) as vl_base_icms_st_fcp_ant_nf
+                                        CAST('f29' AS int ) as vl_base_icms_st_gare_nf
+                                        CAST('f30' AS int ) as vl_icms_fcp_nf
+                                        CAST('f31' AS int ) as vl_icms_st_fcp_nf
+                                        CAST('f32' AS int ) as vl_icms_st_fcp_ant_nf
+                                        CAST('f33' AS int ) as vl_icms_st_gare_nf
+                                        CAST('f34' AS int ) as vl_troco_nf
+                                        CAST('f35' AS int ) as cd_tp_trib_cliente
+                                        CAST('f36' AS int ) as cd_televenda
+                                        CAST('f37' AS int ) as cd_tipo_pdv
+                                        CAST('f38' AS int ) as cd_tp_registro
+                                        CAST('f39' AS int ) as cd_filial
+                                        CAST('f40' AS int ) as cd_transacao_cliente
+                                        CAST('f41' AS int ) as cd_origem_nf
+                                        CAST('f42' AS int ) as cd_forma_pagto
+                                        CAST('f43' AS int ) as id_cliente
+                                        CAST('f44' AS int ) as nr_seque
+                                        CAST('f45' AS int ) as nr_cupom
+                                        CAST('f46' AS int ) as nr_sequencia_cupom
+                                        CAST('f47' AS int ) as nr_caixa
+                                        CAST('f48' AS int ) as qt_pontos
+                                        CAST('f49' AS int ) as vl_nf
+                                        CAST('f50' AS int ) as st_transmissao
+                                        CAST('f51' AS int ) as cd_ent_filant
+                                        CAST('f52' AS int ) as nr_nf
+                                        CAST('f53' AS int ) as vl_icms_nf
+                                        CAST('f54' AS int ) as vl_ipi_nf
+                                        CAST('f55' AS int ) as vl_frete
+                                        CAST('f56' AS int ) as vl_seguro
+                                        CAST('f57' AS int ) as vl_base_frete
+                                        CAST('f58' AS int ) as vl_icms_frete
+                                        CAST('f59' AS int ) as pc_icms_frete
+                                        CAST('f60' AS int ) as vl_base_reduzida
+                                        CAST('f61' AS int ) as vl_base_icms
+                                        CAST('f62' AS int ) as vl_sinal_pontos
+                                        CAST('f63' AS int ) as vl_sinal_brindes
+                                        CAST('f64' AS int ) as vl_sinal_saldo
+                                        CAST( 'f65' AS TIMESTAMP(3) ) as dt_fechto
+                                        CAST('f66' AS TIMESTAMP(3) ) as dt_faturamento
+                                        CAST('f67' AS int ) as vl_sinal_estoque
+                                        CAST('f68' AS int ) as vl_nf_repasse
+                                        CAST('f69' AS int ) as fl_venda_rg
+                                        CAST('f70' AS int ) as vl_total_custo
+                                        CAST('f71' AS int ) as vl_sinal_estoque_indisp_origem
+                                        CAST('f72' AS TIMESTAMP(3) ) as dt_timestamp
+                                        CAST('f73' AS int ) as nr_autorizacao
+                                        CAST('f74' AS int ) as cd_tp_nf
+                                        CAST('f75' AS int ) as cd_empresa_venda_vinculada
+                                        CAST('f76' AS varchar ) as st_faturamento_convenio
+                                        CAST('f77' AS int ) as cd_operador
+                                        CAST('f78' AS int ) as st_transmissao_terceiros
+                                        CAST('f79' AS int ) as nr_autorizacao_pbm
+                                        CAST('f80' AS int ) as vl_glosa_pbm_repasse
+                                        CAST('f81' AS int ) as vl_glosa_pbm_subsidio
+                                        CAST('f82' AS int ) as vl_glosa_convenio
+                                        CAST('f83' AS TIMESTAMP(3) ) as dt_glosa_convenio
+                                        CAST('f84' AS TIMESTAMP(3) ) as dt_glosa_pbm_subsidio
+                                        CAST('f85' AS TIMESTAMP(3) ) as dt_glosa_pbm_repasse
+                                        CAST('f86' AS int ) as cd_pbr
+                                        CAST('f87' AS int ) as vl_estorno_glosa_convenio
+                                        CAST('f88' AS TIMESTAMP(3) ) as dt_estorno_glosa_convenio
+                                        CAST('f89' AS int ) as cd_tipo_glosa
+                                        CAST('f90' AS int ) as cd_tipo_glosa_pbmr
+                                        CAST('f91' AS varchar ) as cds_chave_acesso_nfe
+                                        CAST('f92' AS TIMESTAMP(3) ) as dt_confirmacao_tracking
+                                        CAST('f93' AS int ) as id_nf
+                                        CAST('f94' AS int ) as cd_operacao_fiscal
+                                        CAST('f95' AS int ) as cd_filial_origem
+                                        CAST('f96' AS int ) as cd_filial_destino
+                                        CAST('f97' AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
                                         """)
 
