@@ -143,7 +143,7 @@ def job():
     table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
     t_env.execute_sql("""INSERT INTO SINK SELECT
-                                        CAST('f0' AS int ) as vl_iss
+                                         CAST('f0' AS int ) as vl_iss
                                         ,CAST('f1' AS TIMESTAMP(3) ) as dt_fechto_credenciada
                                         ,CAST('f2' AS int ) as cd_credenciada
                                         ,CAST('f3' AS int ) as vl_subsidio_empresa
@@ -242,7 +242,7 @@ def job():
                                         ,CAST('f96' AS int ) as cd_filial_destino
                                         ,CAST('f97' AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
-                                        """)
+                                        """).wait()
 
     t_env.execute('tb_nf')
 
