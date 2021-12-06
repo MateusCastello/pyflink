@@ -11,7 +11,7 @@ import json
 def job():
     env = StreamExecutionEnvironment.get_execution_environment()
     env.set_runtime_mode(execution_mode=RuntimeExecutionMode.STREAMING)
-    env.enable_checkpointing(5000)
+    env.enable_checkpointing(10000)
     env.get_checkpoint_config().set_max_concurrent_checkpoints(1)
     t_env = StreamTableEnvironment.create(env)
 
