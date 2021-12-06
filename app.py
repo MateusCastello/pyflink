@@ -32,7 +32,7 @@ def job():
 
      # Saída
     t_env.execute_sql('''
-                    CREATE TABLE SINK (
+                    CREATE TABLE sink (
                                         vl_iss int ,
                                         dt_fechto_credenciada TIMESTAMP(3),
                                         cd_credenciada int ,
@@ -142,7 +142,8 @@ def job():
                     )''')
     table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
-    t_env.execute_sql("""INSERT INTO SINK SELECT
+    t_env.insert_into()
+    tabela=t_env.execute_sql(""" SELECT
                                          CAST('f0' AS int ) as vl_iss
                                         ,CAST('f1' AS TIMESTAMP(3) ) as dt_fechto_credenciada
                                         ,CAST('f2' AS int ) as cd_credenciada
@@ -242,9 +243,10 @@ def job():
                                         ,CAST('f96' AS int ) as cd_filial_destino
                                         ,CAST('f97' AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
-                                        """).wait()
+                                        """)
 
-    #t_env.execute('tb_nf')
+    t_env.insert_into("sink",tabela)
+    t_env.execute('tb_nf')
 
 if __name__ == '__main__':
     job()
