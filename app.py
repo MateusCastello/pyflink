@@ -32,7 +32,7 @@ def job():
 
      # Saída
     t_env.execute_sql('''
-                    CREATE TABLE SINK (
+                    CREATE TABLE sink (
                                         vl_iss int ,
                                         dt_fechto_credenciada TIMESTAMP(3),
                                         cd_credenciada int ,
@@ -93,7 +93,7 @@ def job():
                                         vl_base_frete int ,
                                         vl_icms_frete int ,
                                         pc_icms_frete int ,
-                                        vl_base_reduzida int ,
+                                        vl_base_reduzida int ,sink
                                         vl_base_icms int ,
                                         vl_sinal_pontos int ,
                                         vl_sinal_brindes int ,
@@ -243,6 +243,7 @@ def job():
                                         ,CAST(f97 AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
                                         """)
-    t_env.execute('tb_nf')
+    #t_env.execute('tb_nf')
+    env.execute('tb_nf_ds')
 if __name__ == '__main__':
     job()
