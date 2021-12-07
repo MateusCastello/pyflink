@@ -93,7 +93,7 @@ def job():
                                         vl_base_frete int ,
                                         vl_icms_frete int ,
                                         pc_icms_frete int ,
-                                        vl_base_reduzida int ,sink
+                                        vl_base_reduzida int ,
                                         vl_base_icms int ,
                                         vl_sinal_pontos int ,
                                         vl_sinal_brindes int ,
