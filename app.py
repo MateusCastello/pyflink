@@ -243,7 +243,7 @@ def job():
                                         ,CAST(f97 AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
                                         """)
-    #t_env.execute('tb_nf')
+    t_env.execute('tb_nf')
     env.execute('tb_nf_ds')
 if __name__ == '__main__':
     job()
