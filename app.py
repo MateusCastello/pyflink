@@ -131,7 +131,7 @@ def job():
                                         cd_filial_origem int ,
                                         cd_filial_destino int ,
                                         dt_evento TIMESTAMP(3)
-                                    )
+                                        )
                 WITH (
                         'connector.type' = 'jdbc',
                         'connector.url' = 'jdbc:postgresql://mantabase.c0uugfnq0yzw.us-east-1.rds.amazonaws.com:5432/mantabase',
@@ -140,9 +140,9 @@ def job():
                         'connector.password' = 'postgres_password',
                         'connector.write.flush.interval' = '1s'
                     )''')
-    table = t_env.from_data_stream(ds,)
+    table = t_env.from_data_stream(ds)
     t_env.create_temporary_view("InputTable", table)
-    tabela=t_env.execute_sql(""" SELECT
+    t_env.execute_sql(""" INSERT INTO SINK SELECT
                                          CAST(f0 AS int ) as vl_iss
                                         ,CAST(f1 AS TIMESTAMP(3) ) as dt_fechto_credenciada
                                         ,CAST(f2 AS int ) as cd_credenciada
@@ -243,9 +243,6 @@ def job():
                                         ,CAST(f97 AS TIMESTAMP(3) ) as dt_evento
                                         FROM InputTable
                                         """)
-
-    t_env.insert_into("sink",tabela)
     t_env.execute('tb_nf')
-
 if __name__ == '__main__':
     job()
