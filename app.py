@@ -32,7 +32,7 @@ def job():
 
      # Saída
     t_env.execute_sql('''
-                    CREATE TABLE sink (
+                    CREATE TABLE SINK (
                                         vl_iss int ,
                                         dt_fechto_credenciada TIMESTAMP(3),
                                         cd_credenciada int ,
